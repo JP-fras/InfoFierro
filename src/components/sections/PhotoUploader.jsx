@@ -7,40 +7,29 @@ function PhotoLoader() {
   const [loading, setLoading] = useState(false);
   const [carData, setCarData] = useState(null);
 
-  // Función para tomar una foto con la cámara
-  const handleTakePhoto = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const video = document.createElement('video');
-      video.srcObject = stream;
-      
-      // Crear temporizador para dar tiempo a cargar la cámara
-      await new Promise(resolve => {
-        video.onloadedmetadata = () => {
-          video.play();
-          setTimeout(resolve, 300);
-        };
-      });
-      
-      // Tomar la foto
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      canvas.getContext('2d').drawImage(video, 0, 0);
-      
-      // Convertir a base64
-      const base64Image = canvas.toDataURL('image/jpeg');
-      setPreview(base64Image);
-      setImage(base64Image);
-      
-      // Detener stream de video
-      stream.getTracks().forEach(track => track.stop());
-      
-    } catch (error) {
-      console.error('Error al tomar la foto:', error);
-      alert('No se pudo acceder a la cámara. Por favor, verifique los permisos.');
+  // Función para abrir la cámara nativa
+const handleTakePhoto = () => {
+  // Crear input file dinámicamente
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.capture = 'environment'; // 'user' para cámara frontal, 'environment' para trasera
+  
+  input.onchange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Image = e.target.result;
+        setPreview(base64Image);
+        setImage(base64Image);
+      };
+      reader.readAsDataURL(file);
     }
   };
+  
+  input.click();
+};
 
   // Función para cargar una imagen desde el dispositivo
   const handleUploadPhoto = (e) => {
