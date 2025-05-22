@@ -2,10 +2,13 @@
 import { Link } from 'react-router-dom';
 
 function Header() {
+<<<<<<< HEAD
     
   const manejarScroll = () => {
     scrollToElement(seccionRef.current, 1500); // 1500ms (1.5s) scroll
   };
+=======
+>>>>>>> origin/raigo
 
   return (
     <header className="bg-[#007BFF] text-white shadow-md">
@@ -17,10 +20,17 @@ function Header() {
 
         {/* Navegación */}
         <nav className="hidden md:flex space-x-6">
+<<<<<<< HEAD
           <a href="#inicio" className="hover:text-gray-200 transition ">Inicio</a>
           <a href="#photo" className="hover:text-gray-200 transition ">Analizar</a>
           <a href="#faq" className="hover:text-gray-200 transition " onClick={manejarScroll}>Caracteristicas</a>
           <a href="#" className="hover:text-gray-200 transition">Preguntas Frecuentes</a>
+=======
+          <a to="/" href="#" className="hover:text-gray-200 transition">Inicio</a>
+          <a href="#analizar" className="hover:text-gray-200 transition">Analizar</a>
+          <a href="#" className="hover:text-gray-200 transition">Caracteristicas</a>
+          <a  href="#" className="hover:text-gray-200 transition" >Preguntas Frecuentes</a>
+>>>>>>> origin/raigo
         </nav>
 
         {/* Botón de llamada a la acción */}
