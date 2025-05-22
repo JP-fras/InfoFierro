@@ -10,10 +10,7 @@ function Inicio() {
       <div id="inicio"><HeroSection /></div>
       <div id="photo"><PhotoUploader/></div>
       <div id="faq"><FaqSection/></div>
-      <HeroSection />
-      <PhotoUploader />
-      <FaqSection/>
-      <FeaturesSection/>
+      <div id="caracte"><FeaturesSection/></div>
     </div>
   );
 }

@@ -191,7 +191,7 @@ function PhotoLoader() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-5xl mx-auto mt-20 mb-20">
       <div className="bg-white shadow-md rounded-lg p-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Reconocimiento de Auto</h1>
         
