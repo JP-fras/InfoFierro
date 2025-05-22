@@ -71,7 +71,7 @@ function PhotoLoader() {
         formData.append("file", blob, "photo.jpg");
 
         // Enviar al backend
-        const res = await fetch('http://localhost:8000/analyze-car', {
+        const res = await fetch('https://apigeninfofierro.onrender.com/analyze-car', {
         method: 'POST',
         body: formData, // No poner headers, fetch los maneja con FormData
         });
@@ -209,7 +209,7 @@ function PhotoLoader() {
         )}
         
         {/* Botones de acción */}
-        <div className="flex flex-wrap gap-3 mb-4">
+        <div className="flex flex-wrap gap-3 mb-4" id='analizar'>
           <button
             onClick={handleTakePhoto}
             className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"

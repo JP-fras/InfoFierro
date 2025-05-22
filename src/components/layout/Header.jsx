@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 
 function Header() {
     
+  const manejarScroll = () => {
+    scrollToElement(seccionRef.current, 1500); // 1500ms (1.5s) scroll
+  };
 
   return (
     <header className="bg-[#007BFF] text-white shadow-md">
@@ -14,9 +17,9 @@ function Header() {
 
         {/* Navegación */}
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="hover:text-gray-200 transition">Inicio</a>
-          <a href="#analizar" className="hover:text-gray-200 transition">Analizar</a>
-          <a href="#" className="hover:text-gray-200 transition">Caracteristicas</a>
+          <a href="#inicio" className="hover:text-gray-200 transition ">Inicio</a>
+          <a href="#photo" className="hover:text-gray-200 transition ">Analizar</a>
+          <a href="#faq" className="hover:text-gray-200 transition " onClick={manejarScroll}>Caracteristicas</a>
           <a href="#" className="hover:text-gray-200 transition">Preguntas Frecuentes</a>
         </nav>
 

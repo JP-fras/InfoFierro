@@ -2,11 +2,11 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-[#0C6CB2] text-white py-6 mt-16">
+    <footer className="bg-[B#0C6C2] text-white py-6 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         {/* Marca */}
         <div className="text-lg font-semibold">
-          InfoFierro © {new Date().getFullYear()}
+          InfoFierro © {new Date().getFullYear()    }
         </div>
 
         {/* Navegación de pie */}
