@@ -1,39 +1,45 @@
+import React from "react";
+import logo from "../../assets/logo.png"; // Asegúrate de colocar aquí la imagen que usaste
 
-import { Link } from 'react-router-dom';
-
-function Header() {
-    
-
+const Header = ({ onNavigate }) => {
   return (
-    <header className="bg-[#007BFF] text-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Logo / Marca */}
-        <div className="flex items-center">
-            <img src="/logo.png" alt="InfoFierro Logo" className="h-15 w-auto rounded" />
-        </div>
+    <header className="bg-blue-500 text-white py-3 px-6 flex items-center justify-between shadow-md">
+      {/* Logo */}
+      <div className="flex items-center space-x-2">
+        <img src={logo} alt="InfoFierro Logo" className="w-12 h-12" />
+        <span className="font-bold text-lg">InfoFierro</span>
+      </div>
 
-        {/* Navegación */}
-        <nav className="hidden md:flex space-x-6">
-          <a href="#" className="hover:text-gray-200 transition">Inicio</a>
-          <a href="#analizar" className="hover:text-gray-200 transition">Analizar</a>
-          <a href="#" className="hover:text-gray-200 transition">Caracteristicas</a>
-          <a href="#" className="hover:text-gray-200 transition">Preguntas Frecuentes</a>
-        </nav>
+      {/* Menú de navegación */}
+      <nav className="flex space-x-6">
+        <button
+          onClick={() => onNavigate("inicio")}
+          className="hover:underline"
+        >
+          Inicio
+        </button>
+        <button
+          onClick={() => onNavigate("analizar")}
+          className="hover: HeroSection"
+        >
+          Analizar
+        </button>
+        <button
+          onClick={() => onNavigate("caracteristicas")}
+          className="hover:underline"
+        >
+          Características
+        </button>
+        <button onClick={() => onNavigate("faq")} className="hover:underline">
+          Preguntas Frecuentes
+        </button>
+      </nav>
 
-        {/* Botón de llamada a la acción */}
-        <div className="hidden md:block">
-          <a
-            href="#"
-            className="bg-[#FF6F00] hover:bg-[#0C6CB2] text-white font-semibold py-2 px-4 rounded transition"
-          >
-            Registrarse
-          </a>
-        </div>
-
-        {/* Menú mobile (opcional) */}
-        <div className="md:hidden">
-          {/* Aquí podés agregar un ícono de menú hamburguesa si querés */}
-        </div>
+      {/* Botón Registrarse */}
+      <div>
+        <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg">
+          Registrarse
+        </button>
       </div>
     </header>
   );

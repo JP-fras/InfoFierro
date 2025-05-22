@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
-function Footer() {
+const Footer = ({ onNavigate }) => {
   return (
-    <footer className="bg-[#0C6CB2] text-white py-6 mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        {/* Marca */}
-        <div className="text-lg font-semibold">
-          InfoFierro © {new Date().getFullYear()}
-        </div>
-
-        {/* Navegación de pie */}
-        <div className="flex space-x-6">
-          <a href="#" className="hover:text-[#FF6F00] transition">Inicio</a>
-          <a href="#" className="hover:text-[#FF6F00] transition">Nosotros</a>
-          <a href="#" className="hover:text-[#FF6F00] transition">Contacto</a>
-        </div>
-      </div>
+    <footer className="bg-gradient-to-r from-blue-800 to-blue-600 text-white py-5 px-8 flex justify-center gap-8 shadow-inner shadow-black/30 border-t border-blue-500 fixed bottom-0 left-0 w-full z-50">
+      {[
+        { label: "Inicio", ruta: "inicio" },
+        { label: "Contacto", ruta: "contacto" },
+        { label: "Nosotros", ruta: "nosotros" },
+      ].map((item) => (
+        <button
+          key={item.ruta}
+          onClick={() => onNavigate(item.ruta)}
+          className="bg-blue-700/40 hover:bg-white hover:text-blue-800 transition-colors duration-300 px-4 py-2 rounded-xl font-medium shadow-md"
+        >
+          {item.label}
+        </button>
+      ))}
     </footer>
   );
 };
