@@ -2,7 +2,6 @@
 import { Link } from 'react-router-dom';
 
 function Header() {
-    
 
   return (
     <header className="bg-[#007BFF] text-white shadow-md">
@@ -14,10 +13,10 @@ function Header() {
 
         {/* Navegación */}
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="hover:text-gray-200 transition">Inicio</a>
+          <a to="/" href="#" className="hover:text-gray-200 transition">Inicio</a>
           <a href="#analizar" className="hover:text-gray-200 transition">Analizar</a>
           <a href="#" className="hover:text-gray-200 transition">Caracteristicas</a>
-          <a href="#" className="hover:text-gray-200 transition">Preguntas Frecuentes</a>
+          <a  href="#" className="hover:text-gray-200 transition" >Preguntas Frecuentes</a>
         </nav>
 
         {/* Botón de llamada a la acción */}

@@ -130,7 +130,7 @@ function PhotoLoader() {
                 <li className="text-gray-600"><span className="font-medium">Tracción:</span> {datos_auto.tracciones}</li>
               </ul>
             </div>
-            
+              
             <div className="mt-4">
               <h3 className="font-semibold text-gray-700">Ventajas</h3>
               <ul className="mt-2 space-y-1">
