@@ -162,7 +162,7 @@ const handleTakePhoto = () => {
       )
     }
 
-    if(datos_auto.marca == "No-se-identifica" || datos_auto.modelo == "No-se-identifica" || datos_auto.marca == "No-se-determina" || datos_auto.modelo == "No-se-visualiza" ) {
+    if(datos_auto.marca == "No-se-identifica" || datos_auto.modelo == "No-se-identifica" || datos_auto.marca == "No-se-determina" || datos_auto.modelo == "No-se-visualiza" || datos_auto.modelo == "No-se-puede-determinar"  || datos_auto.modelo == "No-identificable") {
       return (
         <div className="mt-6 bg-white rounded-lg shadow-md p-6">
         <div className="flex flex-col md:flex-row gap-6">
