@@ -1,8 +1,39 @@
 
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Header() {
+  const location = useLocation();
+
+  function establecerAtributosHeader(location) {
+    if(location.pathname === "/") {
+      return atributosInicio();
+    }
+    else if(location.pathname === "/nosotros") {
+      return atributosNosotros();
+    }
+  }
+
+  function atributosInicio() {
+    return (
+      <nav className="hidden md:flex space-x-6">
+          <a href="#inicio" className="hover:text-gray-200 transition ">Inicio</a>
+          <a href="#photo" className="hover:text-gray-200 transition ">Analizar</a>
+          <a href="#caracte" className="hover:text-gray-200 transition " >Caracteristicas</a>
+          <a href="#faq" className="hover:text-gray-200 transition">Preguntas Frecuentes</a>
+      </nav>
+    )
+  }
+
+  function atributosNosotros() {
+    return(
+      <nav className="hidden md:flex space-x-6">
+          <h2>Seguinos en Linkedin!</h2>
+      </nav>
+    )
     
+  }
+
 
   return (
     <header className="bg-[#007BFF] text-white shadow-md">
@@ -13,12 +44,7 @@ function Header() {
         </div>
 
         {/* Navegación */}
-        <nav className="hidden md:flex space-x-6">
-          <a href="#inicio" className="hover:text-gray-200 transition ">Inicio</a>
-          <a href="#photo" className="hover:text-gray-200 transition ">Analizar</a>
-          <a href="#caracte" className="hover:text-gray-200 transition " >Caracteristicas</a>
-          <a href="#faq" className="hover:text-gray-200 transition">Preguntas Frecuentes</a>
-        </nav>
+        {establecerAtributosHeader(location)}
 
         {/* Botón de llamada a la acción */}
         <div className="hidden md:block">
