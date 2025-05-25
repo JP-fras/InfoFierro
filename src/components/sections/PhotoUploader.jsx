@@ -9,11 +9,13 @@ function PhotoLoader() {
 
   // Función para abrir la cámara nativa
 const handleTakePhoto = () => {
-  // Crear input file dinámicamente
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = 'image/*';
-  input.capture = 'environment'; // 'user' para cámara frontal, 'environment' para trasera
+  
+  // ✅ Agregar al DOM temporalmente (Safari lo requiere a veces)
+  input.style.display = 'none';
+  document.body.appendChild(input);
   
   input.onchange = (event) => {
     const file = event.target.files[0];
@@ -26,6 +28,9 @@ const handleTakePhoto = () => {
       };
       reader.readAsDataURL(file);
     }
+    
+    // ✅ Remover del DOM después de usar
+    document.body.removeChild(input);
   };
   
   input.click();
@@ -69,8 +74,9 @@ const handleTakePhoto = () => {
         console.log(data);
         setCarData(data);
 
+
         if (!res.ok) {
-        throw new Error(data.detail || "Error al analizar la imagen");
+        throw new Error()
         }
 
         // Manejar la respuesta correctamente
@@ -95,12 +101,87 @@ const handleTakePhoto = () => {
     }).format(price);
   };
 
+
+  function manejarPreciosMercado(precios_mercado, datos_auto) {
+    if(precios_mercado.error) {
+      return (
+        <div className="md:w-1/2">
+            <h2 className="text-2xl font-bold text-gray-800">No se encontraron {datos_auto.marca} {datos_auto.modelo} listados en el mercado</h2>
+        </div>
+      )
+    }else {
+      return (
+        <div className="md:w-1/2">
+            <h2 className="text-2xl font-bold text-gray-800">Precios en el mercado</h2>
+            
+            <div className="mt-4">
+              <h3 className="font-semibold text-gray-700">Estadísticas</h3>
+              <ul className="mt-2 space-y-1">
+                <li className="text-gray-600"><span className="font-medium">Precio promedio:</span> {formatPrice(precios_mercado.estadisticas.precio_promedio)}</li>
+                <li className="text-gray-600"><span className="font-medium">Precio mínimo:</span> {formatPrice(precios_mercado.estadisticas.precio_minimo)}</li>
+                <li className="text-gray-600"><span className="font-medium">Precio máximo:</span> {formatPrice(precios_mercado.estadisticas.precio_maximo)}</li>
+              </ul>
+            </div>
+            
+            <div className="mt-4">
+              <h3 className="font-semibold text-gray-700">Anuncios destacados</h3>
+              <div className="mt-2 space-y-3">
+                {precios_mercado.resultados.map((resultado, index) => (
+                  <a 
+                    key={index} 
+                    href={resultado.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block p-3 border border-gray-200 rounded-md hover:bg-gray-50"
+                  >
+                    <div className="font-medium text-blue-600">{resultado.titulo}</div>
+                    <div className="mt-1 text-gray-800 font-semibold">{formatPrice(resultado.precio)}</div>
+                    <div className="mt-1 text-xs text-gray-500">{resultado.tipo.replace(/_/g, ' ')}</div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+      )
+    }
+  }
+
   // Renderizar componente de resultados
   const ResultsComponent = ({ data }) => {
     if (!data) return null;
-    
+
     const { datos_auto, precios_mercado } = data;
     
+    if(data.error == "Error al analizar la imagen con GEMINI: No se pudo extraer un JSON válido de la respuesta de GEMINI") {
+      return (
+        <div className="mt-6 bg-white rounded-lg shadow-md p-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Datos del auto */}
+          <div className="md:w-1/2">
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+              <Car className="mr-2" /> Auto no identificado, por favor suba otra foto
+            </h2>
+          </div>
+        </div>
+        </div>
+      )
+    }
+
+    if(datos_auto.marca == "No-se-identifica" || datos_auto.modelo == "No-se-identifica" || datos_auto.marca == "No-se-determina" || datos_auto.modelo == "No-se-visualiza" ) {
+      return (
+        <div className="mt-6 bg-white rounded-lg shadow-md p-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Datos del auto */}
+          <div className="md:w-1/2">
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center">
+              <Car className="mr-2" /> Auto no identificado, por favor suba otra foto
+            </h2>
+          </div>
+        </div>
+        </div>
+      )
+    }
+
     return (
       <div className="mt-6 bg-white rounded-lg shadow-md p-6">
         <div className="flex flex-col md:flex-row gap-6">
@@ -143,37 +224,7 @@ const handleTakePhoto = () => {
           </div>
           
           {/* Precios */}
-          <div className="md:w-1/2">
-            <h2 className="text-2xl font-bold text-gray-800">Precios en el mercado</h2>
-            
-            <div className="mt-4">
-              <h3 className="font-semibold text-gray-700">Estadísticas</h3>
-              <ul className="mt-2 space-y-1">
-                <li className="text-gray-600"><span className="font-medium">Precio promedio:</span> {formatPrice(precios_mercado.estadisticas.precio_promedio)}</li>
-                <li className="text-gray-600"><span className="font-medium">Precio mínimo:</span> {formatPrice(precios_mercado.estadisticas.precio_minimo)}</li>
-                <li className="text-gray-600"><span className="font-medium">Precio máximo:</span> {formatPrice(precios_mercado.estadisticas.precio_maximo)}</li>
-              </ul>
-            </div>
-            
-            <div className="mt-4">
-              <h3 className="font-semibold text-gray-700">Anuncios destacados</h3>
-              <div className="mt-2 space-y-3">
-                {precios_mercado.resultados.map((resultado, index) => (
-                  <a 
-                    key={index} 
-                    href={resultado.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block p-3 border border-gray-200 rounded-md hover:bg-gray-50"
-                  >
-                    <div className="font-medium text-blue-600">{resultado.titulo}</div>
-                    <div className="mt-1 text-gray-800 font-semibold">{formatPrice(resultado.precio)}</div>
-                    <div className="mt-1 text-xs text-gray-500">{resultado.tipo.replace(/_/g, ' ')}</div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+          {manejarPreciosMercado(precios_mercado, datos_auto)}
         </div>
       </div>
     );
