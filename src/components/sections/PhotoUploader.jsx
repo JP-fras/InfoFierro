@@ -9,13 +9,11 @@ function PhotoLoader() {
 
   // Función para abrir la cámara nativa
 const handleTakePhoto = () => {
+  // Crear input file dinámicamente
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = 'image/*';
-  
-  // ✅ Agregar al DOM temporalmente (Safari lo requiere a veces)
-  input.style.display = 'none';
-  document.body.appendChild(input);
+  input.capture = 'environment'; // 'user' para cámara frontal, 'environment' para trasera
   
   input.onchange = (event) => {
     const file = event.target.files[0];
@@ -28,9 +26,6 @@ const handleTakePhoto = () => {
       };
       reader.readAsDataURL(file);
     }
-    
-    // ✅ Remover del DOM después de usar
-    document.body.removeChild(input);
   };
   
   input.click();
