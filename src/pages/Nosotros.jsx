@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const Nosotros = ({ onNavigate, setEmailSeleccionado }) => {
   const equipo = [
     {
@@ -53,6 +55,8 @@ const Nosotros = ({ onNavigate, setEmailSeleccionado }) => {
         <h2 className="text-3xl font-semibold text-gray-900 mb-6">
           Equipo de desarrollo
         </h2>
+        
+        <Link to="/contact">
         <ul className="space-y-4 text-lg">
           {equipo.map((miembro, index) => (
             <li
@@ -69,6 +73,7 @@ const Nosotros = ({ onNavigate, setEmailSeleccionado }) => {
             </li>
           ))}
         </ul>
+        </Link>
       </div>
     </section>
   );
