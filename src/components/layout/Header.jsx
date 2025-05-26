@@ -49,7 +49,7 @@ function Header() {
         {/* Botón de llamada a la acción */}
         <div className="hidden md:block">
           <a
-            href="#"
+            href="/login"
             className="bg-[#FF6F00] hover:bg-[#0C6CB2] text-white font-semibold py-2 px-4 rounded transition"
           >
             Registrarse
