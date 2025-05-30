@@ -70,7 +70,7 @@ function Login(){
 
 return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/public/fondo.svg)" }}>
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
         
             <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
@@ -91,18 +91,28 @@ return (
             </button>
       
 
-         <p className="mt-4 text-center text-sm">
-          ¿Olvidaste tu contraseña?{" "}
-          <button
+          <p className="mt-4 text-center text-sm">
+            ¿Olvidaste tu contraseña?{" "}
+            <button
             onClick={() => setRecuperarVisible(!recuperarVisible)}
             className="text-blue-600 hover:underline font-medium"
-          >Recuperala aquí
-          </button>
-        </p>
+            >Recuperala aquí
+              </button>
+            </p>
+
+          <p className="mt-4 text-center text-sm">
+            ¿No tiene una cuenta?{" "}
+            <a href="/login/registro"
+            className="text-blue-600 hover:underline font-medium"
+            >Registrarse
+            </a>
+          </p>
         </form>
 
         {recuperarVisible && (
-          <form onSubmit={handleRecuperar} className="mt-6">
+    <div>
+
+        <form onSubmit={handleRecuperar} className="mt-6">
             <h3 className="text-lg font-semibold mb-4 text-center">
               Recuperar contraseña
             </h3>
@@ -134,6 +144,8 @@ return (
               Enviar instrucciones
             </button>
       </form>
+    </div>
+          
         )}
     </div>
     );
