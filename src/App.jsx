@@ -6,6 +6,7 @@ import Nosotros from "./pages/Nosotros"
 import Contact from './pages/Contact';
 import Login from './pages/Login'
 import Registro from './pages/Registro';
+import Recuperar from './pages/Recuperar';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/contact" element={<Layout><Contact /></Layout>} />
             <Route path="/login" element={<Layout><Login/></Layout>} />
             <Route path="/login/registro" element={<Layout><Registro/></Layout>} />
+            <Route path="/reset-password" element={<Layout><Recuperar/></Layout>} />
 
           </Routes>
       </Router>

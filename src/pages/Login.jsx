@@ -49,7 +49,7 @@ function Login(){
     setErrorRecuperar(null);
 
     try {
-      const res = await fetch("https://apigeninfofierro.onrender.com/login", {
+      const res = await fetch("https://apigeninfofierro.onrender.com/login/recuperar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailRecuperar }),
@@ -94,7 +94,7 @@ return (
           <p className="mt-4 text-center text-sm">
             ¿Olvidaste tu contraseña?{" "}
             <button
-            onClick={() => setRecuperarVisible(!recuperarVisible)}
+            onClick={() => setRecuperarVisible(true)}
             className="text-blue-600 hover:underline font-medium"
             >Recuperala aquí
               </button>
@@ -110,9 +110,16 @@ return (
         </form>
 
         {recuperarVisible && (
-    <div>
-
-        <form onSubmit={handleRecuperar} className="mt-6">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-sm relative shadow-lg"> 
+          <button
+            className="absolute top-2 right-3 text-gray-600 hover:text-gray-800 text-xl font-bold"
+            onClick={() => setRecuperarVisible(false)}
+          >
+            ✕
+          </button>
+          
+        
             <h3 className="text-lg font-semibold mb-4 text-center">
               Recuperar contraseña
             </h3>
@@ -123,7 +130,8 @@ return (
             {errorRecuperar && (
               <p className="mb-4 text-center text-red-600">{errorRecuperar}</p>
             )}
-
+            
+<form onSubmit={handleRecuperar}>
             <label className="block mb-4">
               <span className="block text-sm font-medium text-gray-700">
                 Correo electrónico
@@ -137,13 +145,14 @@ return (
               />
             </label>
 
-            <button
+            <button 
               type="submit"
               className="w-full bg-orange-600 text-white p-2 rounded hover:bg-orange-700"
             >
               Enviar instrucciones
             </button>
-      </form>
+</form>
+      </div>
     </div>
           
         )}
