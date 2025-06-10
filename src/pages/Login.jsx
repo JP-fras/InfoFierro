@@ -3,12 +3,17 @@ import { useState } from "react";
 function Login(){
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // limpiar errores previos
+
+    const payload = {
+      email,
+      contrasena,
+    };
 
     try {
       const response = await fetch("https://apigeninfofierro.onrender.com/login", {
@@ -16,21 +21,26 @@ function Login(){
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify(payload),
       });
+
+      console.log(payload);
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Usuario o contrasena incorrectos");
+
       }
 
       const data = await response.json();
       console.log("Login exitoso:", data);
 
-      // Aquí puedes redirigir o guardar el token, etc.
+      // Guardar el token en localStorage
+      localStorage.setItem('access_token', data.access_token);
+
+      const token = localStorage.getItem('access_token');
+      console.log(token);
+
     } catch (err) {
       console.error("Error:", err.message);
       setError(err.message);
@@ -70,7 +80,7 @@ function Login(){
 
 return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/public/fondo.svg)" }}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/fondo.svg)" }}>
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
         
             <h2 className="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
@@ -82,7 +92,7 @@ return (
 
             <label className="block mb-6">
             <span className="block text-sm font-medium text-gray-700">Contraseña</span>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 p-2 w-full border rounded" required
+            <input type="contrasena" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="mt-1 p-2 w-full border rounded" required
             />
             </label>
 

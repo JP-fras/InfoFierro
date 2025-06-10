@@ -9,7 +9,7 @@ function Header() {
     if(location.pathname === "/") {
       return atributosInicio();
     }
-    else if(location.pathname === "/nosotros") {
+    else if(location.pathname === "/contact") {
       return atributosNosotros();
     }
   }
@@ -31,7 +31,6 @@ function Header() {
           <h2>Seguinos en Linkedin!</h2>
       </nav>
     )
-    
   }
 
 
@@ -52,7 +51,7 @@ function Header() {
             href="/login"
             className="bg-[#FF6F00] hover:bg-[#0C6CB2] text-white font-semibold py-2 px-4 rounded transition"
           >
-            Registrarse
+            Ingresar
           </a>
         </div>
 
