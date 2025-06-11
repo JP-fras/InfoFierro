@@ -96,12 +96,12 @@ function HeroSection() {
                   <p className="text-lg md:text-xl opacity-90 mb-8 transform transition-transform duration-700 delay-100 translate-y-0 max-w-lg">
                     {slide.description}
                   </p>
-                  <button 
-                    onClick={scrollToUploader}
+                  <a
+                    href='/redirect-log'
                     className="bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold px-8 py-3 rounded-lg text-lg transform hover:scale-105 duration-300"
                   >
                     {slide.cta}
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

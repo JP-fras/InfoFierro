@@ -4,19 +4,19 @@ export default function FaqSection() {
   const preguntas = [
     {
       pregunta: "¿Cómo funciona InfoFierro?",
-      respuesta: "InfoFierro analiza tu auto usando inteligencia artificial para darte datos precisos.",
+      respuesta: "InfoFierro analiza tu auto usando inteligencia artificial para reconocer informacion relevante sobre, luego aplica un algoritmo que analiza el mercado a tiempo real para darte los valores precisos, ademas te trae publicaciones destacadas de autos publicados en la web.",
     },
     {
       pregunta: "¿Es gratis usar InfoFierro?",
-      respuesta: "Sí, InfoFierro tiene una versión gratuita y opciones premium.",
+      respuesta: "Sí, InfoFierro tiene una versión gratuita con 10 analisis gratis, luego puedes optar por obtener mas.",
     },
     {
       pregunta: "¿Qué datos necesito subir?",
-      respuesta: "Solo necesitas subir una foto del auto o una URL de imagen.",
+      respuesta: "Solo necesitas subir una foto del auto o... ¡Tomarla en el momento!.",
     },
     {
       pregunta: "¿Hay algún límite de uso por día?",
-      respuesta: "Tienes un solo uso de prueba, si quieres analizar mas autos debes optar por opciones premium.",
+      respuesta: "Puedes usarla tantas veces como analisis tengas disponibles, si quieres analizar mas autos debes optar por opciones premium.",
     },
     {
       pregunta: "¿Dónde puedo enviar sugerencias o reportar errores?",

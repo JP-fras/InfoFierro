@@ -5,7 +5,7 @@ function Analizar(){
 
 return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/fondo.svg)" }}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/fondo2.svg)" }}>
         <PhotoLoader />
     </div>
     );

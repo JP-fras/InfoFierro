@@ -10,7 +10,7 @@ export default function FeaturesSection() {
       <div className="w-4 h-4 bg-blue-700 rounded-full mt-1.5"></div>
       <div>
         <h3 className="text-xl font-semibold text-blue-900">Reconocimiento inteligente</h3>
-        <p className="text-gray-700">Detectamos automáticamente símbolos de fierros en imágenes.</p>
+        <p className="text-gray-700">Detectamos automáticamente marca, modelo y año de autos en imágenes.</p>
       </div>
     </div>
 
@@ -28,7 +28,7 @@ export default function FeaturesSection() {
       <div className="w-4 h-4 bg-blue-700 rounded-full mt-1.5"></div>
       <div>
         <h3 className="text-xl font-semibold text-blue-900">Acceso gratuito</h3>
-        <p className="text-gray-700">Sin pagos ni registros obligatorios.</p>
+        <p className="text-gray-700">Puedes probar varios analisis sin necesidad de pagar.</p>
       </div>
     </div>
 
@@ -45,8 +45,8 @@ export default function FeaturesSection() {
     <div className="flex items-start space-x-4">
       <div className="w-4 h-4 bg-blue-700 rounded-full mt-1.5"></div>
       <div>
-        <h3 className="text-xl font-semibold text-blue-900">Compatible con URL o archivo</h3>
-        <p className="text-gray-700">Sube una imagen o pega un enlace directo.</p>
+        <h3 className="text-xl font-semibold text-blue-900">Valor de Mercado en el momento</h3>
+        <p className="text-gray-700">Nuestro algoritmo analiza el mercado en el instante, dando datos precisos y realistas.</p>
       </div>
     </div>
 

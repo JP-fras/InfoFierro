@@ -1,14 +1,18 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Loader2 } from 'lucide-react';
 
 function Login(){
-
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState(null);
+  const [isLog, setLog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // limpiar errores previos
+    setLoading(true);
 
     const payload = {
       email,
@@ -33,13 +37,15 @@ function Login(){
       }
 
       const data = await response.json();
-      console.log("Login exitoso:", data);
+      console.log("Login exitoso:");
 
       // Guardar el token en localStorage
       localStorage.setItem('access_token', data.access_token);
 
       const token = localStorage.getItem('access_token');
       console.log(token);
+      setLog(true);
+      
 
     } catch (err) {
       console.error("Error:", err.message);
@@ -79,7 +85,8 @@ function Login(){
 
 
 return (
-
+  <div>
+  {!isLog ? (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/fondo.svg)" }}>
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-sm">
         
@@ -96,8 +103,22 @@ return (
             />
             </label>
 
-            <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-            >Iniciar sesión
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Procesando...
+                </>
+              ) : (
+                <>
+                  <h2 className="mr-2 h-2 w-2" />
+                  Iniciar sesión
+                </>
+              )}
             </button>
       
 
@@ -167,6 +188,25 @@ return (
           
         )}
     </div>
+  ):(
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/fondo.svg)" }}>
+                <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
+                  <h2 className="text-2xl font-bold mb-6 text-center">Sesion Iniciada correctamente</h2>
+    
+                 <label className="block mb-6">
+                    <span className="block text-sm font-medium text-gray-700">Ya puedes analizar autos</span>
+                  </label>
+    
+                  <Link to="/analizar">
+                  <button className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700" 
+                   >Ir a Analizar Auto
+                  </button>
+                  </Link>
+                  
+              </div>
+            </div>
+  )}
+  </div>
     );
 }
 export default Login;

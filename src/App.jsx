@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Registro from './pages/Registro';
 import Recuperar from './pages/Recuperar';
 import Analizar from './pages/Analizar';
+import RedirectLog from './pages/RedirectLog';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/login/registro" element={<Layout><Registro/></Layout>} />
             <Route path="/reset-password" element={<Layout><Recuperar/></Layout>} />
             <Route path="/analizar" element={<Layout><Analizar/></Layout>}/>
+            <Route path="/redirect-log" element={<RedirectLog/>}/>
           </Routes>
       </Router>
   )

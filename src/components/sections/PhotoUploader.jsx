@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Camera, Upload, Check, Loader2, Car } from 'lucide-react';
 
 function PhotoLoader() {
+  const token = localStorage.getItem('access_token');
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [carData, setCarData] = useState(null);
+  const [c_fotos, setFotos] = useState(null);
 
+ 
+  useEffect(()=> {
+     fotosDisponibles(token);
+  }, []);
   // Función para abrir la cámara nativa
-const handleTakePhoto = () => {
+  const handleTakePhoto = () => {
   // Crear input file dinámicamente
   const input = document.createElement('input');
   input.type = 'file';
@@ -49,8 +55,13 @@ const handleTakePhoto = () => {
         if (!image) return;
 
     setLoading(true);
+    
+    
 
     try {
+        if(c_fotos<=0) {
+          throw new Error("No tienes mas fotos disponibles para analizar, si deseas continuar analizando debes recargar.");
+        }
         // Convertir base64 a Blob
         const response = await fetch(image);
         const blob = await response.blob();
@@ -75,11 +86,17 @@ const handleTakePhoto = () => {
         }
 
         // Manejar la respuesta correctamente
-        alert("Análisis completado con éxito");
+        
+        if(data.datos_auto.marca == "No-se-identifica") {
+          throw new Error()
+        } else {
+          alert("Análisis completado con éxito");
+          usarFoto();
+        }
         
     } catch (error) {
         console.error("Error al enviar la imagen:", error);
-        alert("Hubo un error al enviar la imagen");
+        alert("Hubo un error al enviar la imagen, pruebe subiendo otra foto o reiniciando sesion");
     } finally {
         setLoading(false);
         
@@ -87,7 +104,19 @@ const handleTakePhoto = () => {
       
   };
 
-  // Función para formatear precios
+  async function usarFoto() {
+    const respo = await fetch('https://apigeninfofierro.onrender.com/usar-foto', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        });
+        setFotos(c_fotos-1);
+        console.log(c_fotos);
+  }
+
+  // Función para formatear preciosf
   const formatPrice = (price) => {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
@@ -96,6 +125,24 @@ const handleTakePhoto = () => {
     }).format(price);
   };
 
+  async function fotosDisponibles(token) {
+    const res = await fetch('https://apigeninfofierro.onrender.com/fotos-disponibles', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
+        });
+    if (!res.ok) {
+     console.error("Error en la petición:", res.status);
+     return null;
+    }
+
+    const data = await res.json();
+    console.log(data); // para ver todo el contenido
+    setFotos(data.fotos_disponibles);
+    return data.fotos_disponibles; // o lo que necesites
+  }
 
   function manejarPreciosMercado(precios_mercado, datos_auto) {
     if(precios_mercado.error) {
@@ -136,6 +183,7 @@ const handleTakePhoto = () => {
                 ))}
               </div>
             </div>
+            <span className="block text-sm font-small text-gray-700 mt-5">*En autos muy antiguos o exoticos el valor puede no ser representativo debido a las pocas unidades a la venta en el pais.</span>
           </div>
       )
     }
@@ -228,7 +276,7 @@ const handleTakePhoto = () => {
   return (
     <div className="max-w-5xl mx-auto mt-20 mb-20">
       <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Reconocimiento de Auto</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Analizar auto</h1>
         
         {/* Previsualización de imagen */}
         {preview && (
@@ -243,6 +291,7 @@ const handleTakePhoto = () => {
           </div>
         )}
         
+
         {/* Botones de acción */}
         <div className="flex flex-wrap gap-3 mb-4" id='analizar'>
           <button
@@ -295,7 +344,9 @@ const handleTakePhoto = () => {
             </p>
           </div>
         )}
+          <span className="block text-sm font-medium text-gray-700 mt-5">Cantidad de Analisis Disponibles: {c_fotos}.</span>
       </div>
+      
       
       {/* Resultados */}
       <ResultsComponent data={carData} />
